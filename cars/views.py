@@ -2,18 +2,18 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from cars.models import Car
 from cars.forms import CarForms
+from django.views import View
 
 
-def cars_view(request):
-    cars = Car.objects.all()
-    search = request.GET.get('search', None)
+class CarView(View):
+    def get(self, request):
+        cars = Car.objects.all()
+        search = request.GET.get('search', None)
 
-    if search:
-        cars = Car.objects.filter(model_icontains=search).order_by('-id')
-        
-    print(cars)
-
-    return render(request, 'cars.html', {'cars': cars})
+        if search:
+            cars = Car.objects.filter(model_icontains=search).order_by('-id')
+            
+        return render(request, 'cars.html', {'cars': cars})
 
 
 def add_car_view(request):
