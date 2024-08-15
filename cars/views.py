@@ -1,9 +1,6 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
 from cars.models import Car
 from cars.forms import CarForms
-from django.views import View
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 
 
 class CarsList(ListView):
@@ -24,3 +21,8 @@ class NewCarCreateView(CreateView):
     form_class = CarForms
     template_name = 'add_car.html'
     success_url = '/cars/'
+
+
+class CarDetailView(DetailView):
+    model = Car
+    template_name = 'car_detail.html'
