@@ -82,9 +82,15 @@
   <div class="car-card">
       <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}">
       <h2>{{ object.brand }} {{ object.model }}</h2>
-      <p><strong>Ano de fabricação:</strong> {{ object.factory_year }}</p>
-      <p><strong>Ano do modelo:</strong> {{ object.model_year }}</p>
-      <p><strong>Placa:</strong> {{ object.plate }}</p>
-      <p><strong>Preço:</strong> R$ {{ object.value }}</p>
+      <p><strong>Factory Year:</strong> {{ object.factory_year }}</p>
+      <p><strong>Model Year:</strong> {{ object.model_year }}</p>
+      <p><strong>Plate:</strong> {{ object.plate }}</p>
+      <p><strong>Price:</strong> R$ {{ object.value }}</p>
+
+      <div class="buttons-container">
+        <a href="{% url 'cars:update_car_view' pk=object.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'cars:delete_car_view' pk=object.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'cars:cars_view' %}" class="btn">Back</a>
+      </div>
   </div>
 {% endblock %}
