@@ -87,10 +87,12 @@
       <p><strong>Plate:</strong> {{ object.plate }}</p>
       <p><strong>Price:</strong> R$ {{ object.value }}</p>
 
+      {% if user.is_authenticated %}
       <div class="buttons-container">
         <a href="{% url 'cars:update_car_view' pk=object.pk %}" class="btn btn-primary">Edit</a>
         <a href="{% url 'cars:delete_car_view' pk=object.pk %}" class="btn btn-danger">Delete</a>
         <a href="{% url 'cars:cars_view' %}" class="btn">Back</a>
       </div>
+      {% endif %}
   </div>
 {% endblock %}
