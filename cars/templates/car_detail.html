@@ -80,12 +80,19 @@
     }
   </style>
   <div class="car-card">
-      <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}">
+      {% if object.photo %}
+        <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}">
+      {% else %}
+        <p>Photo not avalible.</p>
+      {% endif %}
       <h2>{{ object.brand }} {{ object.model }}</h2>
       <p><strong>Factory Year:</strong> {{ object.factory_year }}</p>
       <p><strong>Model Year:</strong> {{ object.model_year }}</p>
       <p><strong>Plate:</strong> {{ object.plate }}</p>
       <p><strong>Price:</strong> R$ {{ object.value }}</p>
+      {% if object.bio %}
+        <p><strong>Description:</strong>{{ object.bio }}</p>
+      {%endif%}
 
       {% if user.is_authenticated %}
       <div class="buttons-container">
