@@ -18,6 +18,7 @@ class CarsList(ListView):
             cars = cars.filter(model__icontains=search)
         return cars
     
+
 @method_decorator(login_required, name='dispatch')
 class NewCarCreateView(CreateView):
     model = Car
@@ -25,10 +26,12 @@ class NewCarCreateView(CreateView):
     template_name = 'add_car.html'
     success_url = '/cars/'
 
+
 @method_decorator(login_required, name='dispatch')
 class CarDetailView(DetailView):
     model = Car
     template_name = 'car_detail.html'
+
 
 @method_decorator(login_required, name='dispatch')
 class CarUpdateView(UpdateView):
@@ -38,6 +41,7 @@ class CarUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('cars:car_detail_view', kwargs={'pk': self.object.pk})
+
 
 @method_decorator(login_required, name='dispatch')
 class CarDeleteView(DeleteView):
