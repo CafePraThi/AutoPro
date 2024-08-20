@@ -1,9 +1,12 @@
-from cars.models import Car
+from cars.models import Car, CarInventory
 from cars.forms import CarForms
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 
 class CarsList(ListView):
@@ -48,3 +51,16 @@ class CarDeleteView(DeleteView):
     model = Car
     template_name = 'delete_car.html'
     success_url = '/cars/'
+
+
+def api_inventory_view(request):
+    inventorys = CarInventory.objects.all()
+    data = [{'id': inventory.id, 'cars_count': inventory.cars_count, 'cars_value': inventory.cars_value, 'created_at': inventory.created_at } for inventory in inventorys]
+    return JsonResponse(data, safe=False)
+
+
+@csrf_exempt
+def api_inventory_detail(request, pk):
+    inventory = get_object_or_404(CarInventory, pk=pk)
+    data = {'id': inventory.id, 'cars_count': inventory.cars_count, 'cars_value': inventory.cars_value, 'created_at': inventory.created_at }
+    return JsonResponse(data, safe=False)
